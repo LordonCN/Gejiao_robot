@@ -286,21 +286,20 @@
   },
   {
     "params": {
-      "Frequency": 10,
-      "MaxDistance": 100,
-      "Topic": "/apollo/perception/obstacles"
+      "Frequency": 13.4,
+      "Topic": "/apollo/sensor/conti_radar"
     },
     "transform": {
       "x": 0,
-      "y": 0,
-      "z": 0,
+      "y": 0.337,
+      "z": 3.691,
       "pitch": 0,
       "yaw": 0,
       "roll": 0
     },
-    "name": "3D Ground Truth",
+    "name": "Radar",
     "parent": null,
-    "pluginId": "e3fef197-9724-48ec-b98e-c5a0892d09c4",
+    "pluginId": "215b7d1e-7ad3-4fe6-b3d9-db0e229eb0a4",
     "sortKey": 5,
     "plugin": {
       "isFavored": true,
@@ -321,16 +320,16 @@
         "2021.1",
         "2021.1.1"
       ],
-      "id": "e3fef197-9724-48ec-b98e-c5a0892d09c4",
-      "name": "3D Ground Truth Sensor",
-      "type": "PerceptionSensor3D",
+      "id": "215b7d1e-7ad3-4fe6-b3d9-db0e229eb0a4",
+      "name": "Radar Sensor",
+      "type": "RadarSensor",
       "category": "sensor",
       "ownerId": "0d888b00-fa53-47c1-882a-b68391268a11",
       "accessType": "public",
-      "description": "This sensor returns 3D ground truth data for training and creates bounding boxes around the detected objects. The color of the object corresponds to the object's type:\n\t[\n\t\t\"Car\": \"Green\"\n\t\t\"Pedestrian\": \"Yellow\"\n\t\t\"Bicycle\": \"Cyan\"\n\t\t\"Unknown\":  \"Magenta\"\n\t]\nSee https://www.svlsimulator.com/docs/simulation-content/sensors-list/#3d-ground-truth for more details.",
+      "description": "This sensor outputs the objects detected by the radar. Detected objects are visualized with a box colored by their type:\n\t[\n\t\t\"Car\": \"Green\"\n\t\t\"Bicycle\": \"Cyan\"\n\t\t\"Agent\": \"Magenta\"\n\t]\nSee https://www.svlsimulator.com/docs/simulation-content/sensors-list/#radar for more details.",
       "copyright": "LG Electronics Inc.",
       "licenseName": "LG Content",
-      "imageUrl": "/api/v1/assets/download/preview/fc200028-6393-4dc5-aa5e-4369df4d4e09",
+      "imageUrl": "/api/v1/assets/download/preview/7404a9f8-4ac2-42da-b416-10fb211d24a9",
       "status": "active",
       "owner": {
         "id": "0d888b00-fa53-47c1-882a-b68391268a11",
@@ -339,25 +338,33 @@
       },
       "shareRequests": []
     },
-    "type": "PerceptionSensor3D"
+    "type": "RadarSensor"
   },
   {
     "params": {
-      "Frequency": 10,
+      "LaserCount": 32,
+      "MinDistance": 0.5,
       "MaxDistance": 100,
-      "Topic": "/apollo/perception/traffic_light"
+      "RotationFrequency": 10,
+      "MeasurementsPerRotation": 360,
+      "FieldOfView": 41.33,
+      "CenterAngle": 10,
+      "Compensated": true,
+      "PointColor": "#ff000000",
+      "Topic": "/apollo/sensor/lidar128/compensator/PointCloud2",
+      "Frame": "velodyne"
     },
     "transform": {
       "x": 0,
-      "y": 0,
-      "z": 0,
+      "y": 1.96,
+      "z": 1.0510799,
       "pitch": 0,
       "yaw": 0,
       "roll": 0
     },
-    "name": "Signal Sensor",
+    "name": "Lidar",
     "parent": null,
-    "pluginId": "c4ba9b81-b274-4c05-b78e-636e61b4590e",
+    "pluginId": "b30d0478-8c7b-4687-bfc2-b3cdb3f5faff",
     "sortKey": 6,
     "plugin": {
       "isFavored": true,
@@ -378,16 +385,16 @@
         "2021.1",
         "2021.1.1"
       ],
-      "id": "c4ba9b81-b274-4c05-b78e-636e61b4590e",
-      "name": "Signal Sensor",
-      "type": "SignalSensor",
+      "id": "b30d0478-8c7b-4687-bfc2-b3cdb3f5faff",
+      "name": "Lidar Sensor",
+      "type": "LidarSensor",
       "category": "sensor",
       "ownerId": "0d888b00-fa53-47c1-882a-b68391268a11",
       "accessType": "public",
-      "description": "This sensor returns ground truth data for traffic light signals connected to the current lane of ego vehicle and creates bounding boxes around the detected signals. The color of the bounding box corresponds to the signal's type:\n\t[\n\t\t\"Green\": \"Green\"\n\t\t\"Yellow\": \"Yellow\"\n\t\t\"Red\": \"Red\"\n\t]\nSee https://www.svlsimulator.com/docs/simulation-content/sensors-list/#signal-sensor for more details.",
+      "description": "This sensor returns a point cloud after 1 revolution.\nSee https://www.svlsimulator.com/docs/simulation-content/sensors-list/#lidar for more details.",
       "copyright": "LG Electronics Inc.",
       "licenseName": "LG Content",
-      "imageUrl": "/api/v1/assets/download/preview/b96c848a-056f-4961-9bcd-4c885e2b083d",
+      "imageUrl": "/api/v1/assets/download/preview/dd44a969-c038-4966-a39f-a445ab3b6c00",
       "status": "active",
       "owner": {
         "id": "0d888b00-fa53-47c1-882a-b68391268a11",
@@ -396,13 +403,137 @@
       },
       "shareRequests": []
     },
-    "type": "SignalSensor"
+    "type": "LidarSensor"
+  },
+  {
+    "params": {
+      "Width": 1920,
+      "Height": 1080,
+      "Frequency": 15,
+      "JpegQuality": 75,
+      "FieldOfView": 50,
+      "MinDistance": 0.1,
+      "MaxDistance": 2000,
+      "Topic": "/apollo/sensor/camera/front_6mm/image/compressed"
+    },
+    "transform": {
+      "x": 0,
+      "y": 1.348,
+      "z": 1.219,
+      "pitch": 0,
+      "yaw": 0,
+      "roll": 0
+    },
+    "name": "Main Camera",
+    "parent": null,
+    "pluginId": "3d4f1e08-4c62-4e9f-b859-b26d4910b85e",
+    "sortKey": 7,
+    "plugin": {
+      "isFavored": true,
+      "isShared": false,
+      "isOwned": false,
+      "accessInfo": {
+        "userAccessType": "favored",
+        "owner": {
+          "id": "0d888b00-fa53-47c1-882a-b68391268a11",
+          "firstName": "SVL",
+          "lastName": "Content"
+        }
+      },
+      "supportedSimulatorVersions": [
+        "2021.3",
+        "2021.2",
+        "2021.2.2",
+        "2021.1",
+        "2021.1.1"
+      ],
+      "id": "3d4f1e08-4c62-4e9f-b859-b26d4910b85e",
+      "name": "Color Camera Sensor",
+      "type": "ColorCameraSensor",
+      "category": "sensor",
+      "ownerId": "0d888b00-fa53-47c1-882a-b68391268a11",
+      "accessType": "public",
+      "description": "This is the type of sensor that would be used for the Main Camera in Apollo.\nColor Camera also has multiple post processing sensor effects that can be added to the Postprocessing field in params. Effects can be combined with an array of Postprocessing fields but order is hard coded.\nSee https://www.svlsimulator.com/docs/simulation-content/sensors-list/#color-camera for more details.",
+      "copyright": "LG Electronics Inc.",
+      "licenseName": "LG Content",
+      "imageUrl": "/api/v1/assets/download/preview/f9073a10-2920-4ba8-863c-93faa7c6496a",
+      "status": "active",
+      "owner": {
+        "id": "0d888b00-fa53-47c1-882a-b68391268a11",
+        "firstName": "SVL",
+        "lastName": "Content"
+      },
+      "shareRequests": []
+    },
+    "type": "ColorCameraSensor"
+  },
+  {
+    "params": {
+      "Width": 1920,
+      "Height": 1080,
+      "Frequency": 15,
+      "JpegQuality": 75,
+      "FieldOfView": 10,
+      "MinDistance": 0.1,
+      "MaxDistance": 2000,
+      "Topic": "/apollo/sensor/camera/front_12mm/image/compressed"
+    },
+    "transform": {
+      "x": 0,
+      "y": 1.348,
+      "z": 1.219,
+      "pitch": -4,
+      "yaw": 0,
+      "roll": 0
+    },
+    "name": "Telephoto Camera",
+    "parent": null,
+    "pluginId": "3d4f1e08-4c62-4e9f-b859-b26d4910b85e",
+    "sortKey": 8,
+    "plugin": {
+      "isFavored": true,
+      "isShared": false,
+      "isOwned": false,
+      "accessInfo": {
+        "userAccessType": "favored",
+        "owner": {
+          "id": "0d888b00-fa53-47c1-882a-b68391268a11",
+          "firstName": "SVL",
+          "lastName": "Content"
+        }
+      },
+      "supportedSimulatorVersions": [
+        "2021.3",
+        "2021.2",
+        "2021.2.2",
+        "2021.1",
+        "2021.1.1"
+      ],
+      "id": "3d4f1e08-4c62-4e9f-b859-b26d4910b85e",
+      "name": "Color Camera Sensor",
+      "type": "ColorCameraSensor",
+      "category": "sensor",
+      "ownerId": "0d888b00-fa53-47c1-882a-b68391268a11",
+      "accessType": "public",
+      "description": "This is the type of sensor that would be used for the Main Camera in Apollo.\nColor Camera also has multiple post processing sensor effects that can be added to the Postprocessing field in params. Effects can be combined with an array of Postprocessing fields but order is hard coded.\nSee https://www.svlsimulator.com/docs/simulation-content/sensors-list/#color-camera for more details.",
+      "copyright": "LG Electronics Inc.",
+      "licenseName": "LG Content",
+      "imageUrl": "/api/v1/assets/download/preview/f9073a10-2920-4ba8-863c-93faa7c6496a",
+      "status": "active",
+      "owner": {
+        "id": "0d888b00-fa53-47c1-882a-b68391268a11",
+        "firstName": "SVL",
+        "lastName": "Content"
+      },
+      "shareRequests": []
+    },
+    "type": "ColorCameraSensor"
   },
   {
     "name": "Keyboard Car Control",
     "parent": null,
     "pluginId": "a2ff904a-ff06-4f06-9e45-cb58217a7142",
-    "sortKey": 7,
+    "sortKey": 9,
     "plugin": {
       "isFavored": true,
       "isShared": false,
@@ -446,7 +577,7 @@
     "name": "Wheel Car Control",
     "parent": null,
     "pluginId": "3d5dea8d-232a-46ea-9a16-57ef4c99df03",
-    "sortKey": 8,
+    "sortKey": 10,
     "plugin": {
       "isFavored": true,
       "isShared": false,
@@ -494,7 +625,7 @@
     "name": "Apollo Car Control",
     "parent": null,
     "pluginId": "03ea1a65-03ae-4f2e-b670-d7244e48deb4",
-    "sortKey": 9,
+    "sortKey": 11,
     "plugin": {
       "isFavored": true,
       "isShared": false,
@@ -535,13 +666,10 @@
     "type": "ApolloControlSensor"
   },
   {
-    "params": {
-      "Topic": "/clock"
-    },
-    "name": "Clock Sensor",
+    "name": "Stop Line Sensor",
     "parent": null,
-    "pluginId": "968f386f-dc0b-485d-ba33-5bb71bff93ef",
-    "sortKey": 10,
+    "pluginId": "1b94ebcd-0057-4ef5-a9de-23e7f0628e19",
+    "sortKey": 12,
     "plugin": {
       "isFavored": true,
       "isShared": false,
@@ -561,16 +689,16 @@
         "2021.1",
         "2021.1.1"
       ],
-      "id": "968f386f-dc0b-485d-ba33-5bb71bff93ef",
-      "name": "Clock Sensor",
-      "type": "ClockSensor",
+      "id": "1b94ebcd-0057-4ef5-a9de-23e7f0628e19",
+      "name": "Stop Line Sensor",
+      "type": "StopLineSensor",
       "category": "sensor",
       "ownerId": "0d888b00-fa53-47c1-882a-b68391268a11",
       "accessType": "public",
-      "description": "This sensor outputs simulated time to ROS as rosgraph_msgs/Clock message, or to CyberRT as clock message. The only parameter to use is topic/channel name.\nSee https://www.svlsimulator.com/docs/simulation-content/sensors-list/#clock for more details.",
+      "description": "This sensor detects stop lines and stop line violations",
       "copyright": "LG Electronics Inc.",
       "licenseName": "LG Content",
-      "imageUrl": "/api/v1/assets/download/preview/fb75d445-2e83-440f-8268-c9d4e65024ae",
+      "imageUrl": "/api/v1/assets/download/preview/9907ff05-567c-46c4-a055-ca6f8be20880",
       "status": "active",
       "owner": {
         "id": "0d888b00-fa53-47c1-882a-b68391268a11",
@@ -579,6 +707,110 @@
       },
       "shareRequests": []
     },
-    "type": "ClockSensor"
+    "type": "StopLineSensor"
+  },
+  {
+    "name": "Vehicle Odometry Sensor",
+    "parent": null,
+    "pluginId": "662072f8-8123-4e18-9b45-ee801e0bc020",
+    "sortKey": 13,
+    "plugin": {
+      "isFavored": true,
+      "isShared": false,
+      "isOwned": false,
+      "accessInfo": {
+        "userAccessType": "favored",
+        "owner": {
+          "id": "0d888b00-fa53-47c1-882a-b68391268a11",
+          "firstName": "SVL",
+          "lastName": "Content"
+        }
+      },
+      "supportedSimulatorVersions": [
+        "2021.3",
+        "2021.2",
+        "2021.2.2",
+        "2021.1",
+        "2021.1.1"
+      ],
+      "id": "662072f8-8123-4e18-9b45-ee801e0bc020",
+      "name": "Vehicle Odometry Sensor",
+      "type": "VehicleOdometrySensor",
+      "category": "sensor",
+      "ownerId": "0d888b00-fa53-47c1-882a-b68391268a11",
+      "accessType": "public",
+      "description": "Example sensor for vehicle odometry information.",
+      "copyright": "LG Electronics Inc.",
+      "licenseName": "LG Content",
+      "imageUrl": "/api/v1/assets/download/preview/48d73849-b580-4d95-b09b-a888b8034a4a",
+      "status": "active",
+      "owner": {
+        "id": "0d888b00-fa53-47c1-882a-b68391268a11",
+        "firstName": "SVL",
+        "lastName": "Content"
+      },
+      "shareRequests": []
+    },
+    "type": "VehicleOdometrySensor"
+  },
+  {
+    "params": {
+      "Width": 1920,
+      "Height": 1080,
+      "Framerate": 15,
+      "Bitrate": 3000,
+      "MaxBitrate": 6000,
+      "Quality": 22
+    },
+    "transform": {
+      "x": 0,
+      "y": 10,
+      "z": -10,
+      "pitch": 30,
+      "yaw": 0,
+      "roll": 0
+    },
+    "name": "Video Recording Sensor",
+    "parent": null,
+    "pluginId": "06aef741-23e6-444b-b6d9-18f84f9ace06",
+    "sortKey": 14,
+    "plugin": {
+      "isFavored": true,
+      "isShared": false,
+      "isOwned": false,
+      "accessInfo": {
+        "userAccessType": "favored",
+        "owner": {
+          "id": "0d888b00-fa53-47c1-882a-b68391268a11",
+          "firstName": "SVL",
+          "lastName": "Content"
+        }
+      },
+      "supportedSimulatorVersions": [
+        "2021.3",
+        "2021.2",
+        "2021.2.2",
+        "2021.1",
+        "2021.1.1"
+      ],
+      "id": "06aef741-23e6-444b-b6d9-18f84f9ace06",
+      "name": "Video Recording Sensor",
+      "type": "VideoRecordingSensor",
+      "category": "sensor",
+      "ownerId": "0d888b00-fa53-47c1-882a-b68391268a11",
+      "accessType": "public",
+      "description": "This sensor records a video for test cases.\nSee https://www.svlsimulator.com/docs/simulation-content/sensors-list/#video-recording-sensor for more details.",
+      "copyright": "LG Electronics Inc.",
+      "licenseName": "LG Content",
+      "imageUrl": "/api/v1/assets/download/preview/5578e7e7-acc6-447e-b15d-4c8a958b2239",
+      "status": "active",
+      "owner": {
+        "id": "0d888b00-fa53-47c1-882a-b68391268a11",
+        "firstName": "SVL",
+        "lastName": "Content"
+      },
+      "shareRequests": []
+    },
+    "type": "VideoRecordingSensor"
   }
 ]
